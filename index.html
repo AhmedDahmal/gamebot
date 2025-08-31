@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АгнияКомбат27</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(0deg);
+            z-index: -1;
+        }
+
+        .title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            animation: titleGlow 2s infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4), 0 0 0 rgba(255, 255, 255, 0.5);
+            }
+            100% {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        .counter {
+            font-size: 3rem;
+            color: white;
+            margin: 30px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .click-button {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ff6b6b, #ff8e8e);
+            border: none;
+            color: white;
+            font-size: 1.6rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.5);
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .click-button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.7);
+        }
+
+        .click-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .click-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .click-button:hover::before {
+            opacity: 1;
+        }
+
+        .message {
+            font-size: 1.4rem;
+            margin: 20px 0;
+            min-height: 40px;
+            color: #ffeb3b;
+            text-shadow: 0 0 5px rgba(255, 235, 59, 0.7);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .pulse {
+            animation: pulse 0.6s ease-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 15px 30px rgba(255, 107, 107, 0.6);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            }
+        }
+
+        .floating {
+            position: absolute;
+            animation: float 3s ease-in-out forwards;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 100;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .achievement {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 215, 0, 0.9);
+            color: #333;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1000;
+        }
+
+        .achievement.show {
+            opacity: 1;
+        }
+
+        .upgrades {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .upgrade {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .upgrade:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .upgrade:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .theme-selector {
+            margin-top: 20px;
+        }
+
+        .theme-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 8px 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .theme-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .auto-clicker {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .settings-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .settings-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .settings-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(45deg);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                font-size: 3rem;
+            }
+
+            .counter {
+                font-size: 2.5rem;
+            }
+
+            .click-button {
+                width: 140px;
+                height: 140px;
+                font-size: 1.4rem;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            .message {
+                font-size: 1.2rem;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="settings-panel">
+            <div class="settings-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+            </div>
+        </div>
+
+        <h1 class="title">АгнияКомбат27</h1>
+        <div class="counter" id="counter">0</div>
+        <button class="click-button" id="clickButton">КЛИК</button>
+        <div class="message" id="message">Нажми на кнопку!</div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="clicksPerSecond">0</div>
+                <div class="stat-label">Кликов/сек</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="maxCPS">0</div>
+                <div class="stat-label">Макс. КвС</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="totalClicks">0</div>
+                <div class="stat-label">Всего кликов</div>
+            </div>
+        </div>
+
+        <div class="auto-clicker">
+            <div class="stat-label">Авто-кликер: <span id="autoClickerLevel">0</span> ур.</div>
+            <button class="upgrade" id="upgradeAutoClicker">Улучшить (50 кликов)</button>
+        </div>
+
+        <div class="upgrades">
+            <button class="upgrade" id="upgradeMultiplier">Умножитель x2 (100 кликов)</button>
+            <button class="upgrade" id="upgradeClickPower">Сила клика +1 (30 кликов)</button>
+        </div>
+
+        <div class="theme-selector">
+            <button class="theme-btn" data-theme="default">Стандартная</button>
+            <button class="theme-btn" data-theme="dark">Темная</button>
+            <button class="theme-btn" data-theme="pink">Розовая</button>
+        </div>
+    </div>
+
+    <div class="achievement" id="achievement">Достижение разблокировано!</div>
+
+    <script>
+        let count = 0;
+        let totalClicks = 0;
+        let clicksInLastSecond = 0;
+        let maxCPS = 0;
+        let clickPower = 1;
+        let multiplier = 1;
+        let autoClickerLevel = 0;
+        let autoClickerInterval;
+        let achievements = [
+            { id: 'first_27', count: 27, title: 'Первые 27 кликов!', unlocked: false },
+            { id: 'hundred', count: 100, title: '100 кликов!', unlocked: false },
+            { id: 'five_hundred', count: 500, title: '500 кликов! Мастер клика!', unlocked: false },
+            { id: 'speed_5', cps: 5, title: 'Скорость 5 кликов/сек!', unlocked: false },
+            { id: 'speed_10', cps: 10, title: 'Невероятная скорость 10 кликов/сек!', unlocked: false }
+        ];
+
+        const counterElement = document.getElementById('counter');
+        const clickButton = document.getElementById('clickButton');
+        const messageElement = document.getElementById('message');
+        const cpsElement = document.getElementById('clicksPerSecond');
+        const maxCPSElement = document.getElementById('maxCPS');
+        const totalClicksElement = document.getElementById('totalClicks');
+        const achievementElement = document.getElementById('achievement');
+        const progressElement = document.getElementById('progress');
+        const upgradeMultiplierBtn = document.getElementById('upgradeMultiplier');
+        const upgradeClickPowerBtn = document.getElementById('upgradeClickPower');
+        const upgradeAutoClickerBtn = document.getElementById('upgradeAutoClicker');
+        const autoClickerLevelElement = document.getElementById('autoClickerLevel');
+        const themeButtons = document.querySelectorAll('.theme-btn');
+
+        // Сообщения, которые будут появляться при клике
+        const messages = ["Агния", "27", "Агния27", "Агния, Агния!", "27 Агния", "Агния 27 27", "27 27 27!"];
+
+        // Инициализация кликов в секунду
+        function initCPS() {
+            clearInterval(cpsInterval);
+            cpsInterval = setInterval(() => {
+                cpsElement.textContent = clicksInLastSecond;
+                if (clicksInLastSecond > maxCPS) {
+                    maxCPS = clicksInLastSecond;
+                    maxCPSElement.textContent = maxCPS;
+
+                    // Проверка достижений скорости
+                    checkSpeedAchievements();
+                }
+                clicksInLastSecond = 0;
+
+                // Обновление прогресс-бара
+                updateProgressBar();
+            }, 1000);
+        }
+
+        // Показ всплывающего текста
+        function showFloatingText(text, x, y) {
+            const floatingText = document.createElement('div');
+            floatingText.className = 'floating';
+            floatingText.textContent = text;
+            floatingText.style.left = `${x}px`;
+            floatingText.style.top = `${y}px`;
+            document.body.appendChild(floatingText);
+
+            setTimeout(() => {
+                document.body.removeChild(floatingText);
+            }, 3000);
+        }
+
+        // Показ достижения
+        function showAchievement(text) {
+            achievementElement.textContent = text;
+            achievementElement.classList.add('show');
+
+            setTimeout(() => {
+                achievementElement.classList.remove('show');
+            }, 3000);
+        }
+
+        // Проверка достижений
+        function checkAchievements() {
+            achievements.forEach(achievement => {
+                if (!achievement.unlocked) {
+                    if (achievement.count && count >= achievement.count) {
+                        unlockAchievement(achievement.title);
+                        achievement.unlocked = true;
+                    }
+                }
+            });
+        }
+
+        // Проверка достижений скорости
+        function checkSpeedAchievements() {
+            achievements.forEach(achievement => {
+                if (!achievement.unlocked && achievement.cps && clicksInLastSecond >= achievement.cps) {
+                    unlockAchievement(achievement.title);
+                    achievement.unlocked = true;
+                }
+            });
+        }
+
+        // Разблокировка достижения
+        function unlockAchievement(text) {
+            achievementElement.textContent = text;
+            achievementElement.classList.add('show');
+
+            setTimeout(() => {
+                achievementElement.classList.remove('show');
+            }, 3000);
+        }
+
+        // Обновление прогресс-бара
+        function updateProgressBar() {
+            const nextGoal = getNextGoal();
+            if (nextGoal) {
+                const progress = (count % nextGoal) / nextGoal * 100;
+                progressElement.style.width = `${progress}%`;
+            }
+        }
+
+        // Получение следующей цели
+        function getNextGoal() {
+            if (count < 27) return 27;
+            if (count < 100) return 100;
+            if (count < 500) return 500;
+            return 1000; // После 500 каждые 1000 кликов
+        }
+
+        // Инициализация авто-кликера
+        function initAutoClicker() {
+            clearInterval(autoClickerInterval);
+            if (autoClickerLevel > 0) {
+                autoClickerInterval = setInterval(() => {
+                    incrementCount(autoClickerLevel);
+                }, 1000);
+            }
+        }
+
+        // Увеличение счетчика
+        function incrementCount(value) {
+            count += value;
+            totalClicks += value;
+            counterElement.textContent = count;
+            totalClicksElement.textContent = totalClicks;
+
+            // Проверка достижений
+            checkAchievements();
+
+            // Обновление кнопок улучшений
+            updateUpgradeButtons();
+        }
+
+        // Обновление кнопок улучшений
+        function updateUpgradeButtons() {
+            upgradeMultiplierBtn.disabled = count < 100 || multiplier >= 4;
+            upgradeClickPowerBtn.disabled = count < 30;
+            upgradeAutoClickerBtn.disabled = count < 50;
+
+            upgradeMultiplierBtn.textContent = `Умножитель x${multiplier * 2} (${100 * multiplier} кликов)`;
+            upgradeClickPowerBtn.textContent = `Сила клика +1 (${30 * clickPower} кликов)`;
+            upgradeAutoClickerBtn.textContent = `Улучшить (${50 * (autoClickerLevel + 1)} кликов)`;
+        }
+
+        // Смена темы
+        function changeTheme(theme) {
+            document.body.classList.remove('theme-default', 'theme-dark', 'theme-pink');
+            document.body.classList.add(`theme-${theme}`);
+
+            // Сохранение темы в localStorage
+            localStorage.setItem('clickerTheme', theme);
+        }
+
+        // Загрузка темы из localStorage
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('clickerTheme') || 'default';
+            changeTheme(savedTheme);
+
+            // Отметить активную тему
+            themeButtons.forEach(btn => {
+                if (btn.dataset.theme === savedTheme) {
+                    btn.style.background = 'rgba(255, 255, 255, 0.3)';
+                }
+            });
+        }
+
+        // Обработчик клика
+        clickButton.addEventListener('click', (e) => {
+            incrementCount(clickPower * multiplier);
+            clicksInLastSecond += clickPower * multiplier;
+
+            // Анимация пульсации
+            clickButton.classList.remove('pulse');
+            void clickButton.offsetWidth;
+            clickButton.classList.add('pulse');
+
+            // Случайное сообщение
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            messageElement.textContent = randomMessage;
+
+            // Всплывающий текст
+            const rect = clickButton.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            showFloatingText(`+${clickPower * multiplier}`, x, y);
+        });
+
+        // Улучшение множителя
+        upgradeMultiplierBtn.addEventListener('click', () => {
+            if (count >= 100 * multiplier) {
+                count -= 100 * multiplier;
+                multiplier *= 2;
+                counterElement.textContent = count;
+                updateUpgradeButtons();
+                showFloatingText('Множитель улучшен!', upgradeMultiplierBtn.offsetLeft, upgradeMultiplierBtn.offsetTop);
+            }
+        });
+
+        // Улучшение силы клика
+        upgradeClickPowerBtn.addEventListener('click', () => {
+            if (count >= 30 * clickPower) {
+                count -= 30 * clickPower;
+                clickPower += 1;
+                counterElement.textContent = count;
+                updateUpgradeButtons();
+                showFloatingText('Сила клика улучшена!', upgradeClickPowerBtn.offsetLeft, upgradeClickPowerBtn.offsetTop);
+            }
+        });
+
+        // Улучшение авто-кликера
+        upgradeAutoClickerBtn.addEventListener('click', () => {
+            const cost = 50 * (autoClickerLevel + 1);
+            if (count >= cost) {
+                count -= cost;
+                autoClickerLevel += 1;
+                autoClickerLevelElement.textContent = autoClickerLevel;
+                counterElement.textContent = count;
+                updateUpgradeButtons();
+                initAutoClicker();
+                showFloatingText('Авто-кликер улучшен!', upgradeAutoClickerBtn.offsetLeft, upgradeAutoClickerBtn.offsetTop);
+            }
+        });
+
+        // Смена темы
+        themeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                changeTheme(btn.dataset.theme);
+
+                // Сброс стилей у всех кнопок
+                themeButtons.forEach(b => {
+                    b.style.background = 'rgba(255, 255, 255, 0.15)';
+                });
+
+                // Выделение активной кнопки
+                btn.style.background = 'rgba(255, 255, 255, 0.3)';
+            });
+        });
+
+        // Инициализация
+        initCPS();
+        updateUpgradeButtons();
+        loadTheme();
+
+        // Добавление CSS для дополнительных тем
+        const style = document.createElement('style');
+        style.textContent = `
+            body.theme-dark {
+                background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            }
+            body.theme-pink {
+                background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);
+            }
+            body.theme-dark .click-button {
+                background: linear-gradient(145deg, #4ecdc4, #556270);
+            }
+            body.theme-pink .click-button {
+                background: linear-gradient(145deg, #fd746c, #ff9068);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
